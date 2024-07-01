@@ -4,14 +4,17 @@ USER root
 RUN sed -i -e's/ bookworm bookworm-updates/ bookworm bookworm-updates trixie/g' /etc/apt/sources.list.d/debian.sources && \
     cat /etc/apt/sources.list.d/debian.sources &&  \
     apt-get update && \
-    apt-get install -y wget libnghttp2-14=1.62.1-1 zlib1g
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        vim \
-    && apt-get autoremove -yqq --purge \
+    apt-get install -y  \
+    libnghttp2-14=1.62.1-1 \
+    libpython3.11-minimal=3.11.2-6+deb12u2 \
+    libsystemd0=252.26-1~deb12u2 \
+    libudev1=252.26-1~deb12u2 \
+    python3.11-minimal=3.11.2-6+deb12u2 \
+    zlib1g 
+
+RUN apt-get autoremove -yqq --purge \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    dpkg list
+    && rm -rf /var/lib/apt/lists/*
 
 
 USER airflow
